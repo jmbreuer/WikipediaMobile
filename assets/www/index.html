@@ -150,11 +150,16 @@
             </div>
 			{{#sections}}
 			<div class="section">
-				<h{{level}} class="section_heading" id="section_{{id}}" data-section-id="{{id}}">{{{line}}} <button></button></h{{level}}>
-				<div class="content_block" id="content_{{id}}">
+				<h{{level}} class="section_heading openSection" id="section_{{id}}" data-section-id="{{id}}">{{{line}}} <button class="openSection"></button></h{{level}}>
+				<div class="content_block openSection" id="content_{{id}}">
 					{{#references}}
 						{{{text}}}
 					{{/references}}
+					{{{text}}} 
+						{{#subSections}} 
+							<h{{level}} class="section_heading openSection" id="section_{{id}}">{{{line}}}</h{{level}}>
+							{{{text}}} 
+						{{/subSections}}
 				</div>
 			</div>
 			{{/sections}}
@@ -163,7 +168,7 @@
 		<script type="text/html" id="section-template">
 			{{{text}}} 
 				{{#subSections}} 
-					<h{{level}} class="section_heading" id="section_{{id}}">{{{line}}}</h{{level}}>
+					<h{{level}} class="section_heading openSection" id="section_{{id}}">{{{line}}}</h{{level}}>
 					{{{text}}} 
 				{{/subSections}}
 		</script>
