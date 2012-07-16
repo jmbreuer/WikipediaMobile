@@ -64,10 +64,8 @@
 			sectionprop: 'level|line',
 			noheadings: 'yes'
 		}, lang, {
-			converters: {
-				'json wpage': function(data) {
-					return Page.fromRawJSON(title, data, lang);
-				}
+			dataFilter: function(data) {
+				return Page.fromRawJSON(title, JSON.parse(data), lang);
 			}
 		});	
 	};
