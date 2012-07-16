@@ -6,7 +6,10 @@ window.app = function() {
 		var d = $.Deferred();
 		if(wikis.length === 0) {
 			$.get(ROOT_URL + 'wikis.json').done(function(data) {
-				wikis = JSON.parse(data);
+				if (typeof(data) === 'string')
+					wikis = JSON.parse(data);
+				else
+					wikis = data; 
 				d.resolve(wikis);
 			});
 		} else {
@@ -245,9 +248,14 @@ window.app = function() {
 			// Making this 'text' and parsing the JSON ourselves makes things much easier
 			// Than making it as 'JSON' for pre-processing via dataFilter
 			// See https://forum.jquery.com/topic/datafilter-function-and-json-string-result-problems
-			dataType: 'text',
-			dataFilter: function(text) {
-				return JSON.parse(text);
+			dataType: 'jsonp wpage',
+			converters: {
+				'json wpage': function(text) {
+					if (typeof(text) === 'string')
+						return JSON.parse(text);
+					else
+						return text;
+				}
 			}
 		};
 		var options = $.extend(defaultOptions, extraOptions);
